@@ -1,5 +1,6 @@
 {
   "compact": false,
+  "sourceMaps": "inline",
   "presets": [
     [
       "@babel/preset-env",
@@ -15,6 +16,7 @@
     ]
   ],
   "plugins": [
-    "@babel/plugin-proposal-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread",
+    "babel-plugin-node-source-map-support"
   ]
 }

@@ -184,10 +184,13 @@
 
   // used for dependency analysis
   let varList = [];
-
+  const parameters = [];
   const tableList = new Set();
   const columnList = new Set();
   const tableAlias = {};
+  const unique = (array) => {
+    return Object.values(Object.fromEntries(array.map(e => [JSON.stringify(e), e])));
+  }
 }
 
 start
@@ -233,6 +236,7 @@ multiple_stmt
       return {
         tableList: Array.from(tableList),
         columnList: columnListTableAlias(columnList),
+        parameterList: unique(parameters).sort((a, b) => a.offset - b.offset),
         ast: cur
       }
     }
@@ -248,6 +252,7 @@ union_stmt
       return {
         tableList: Array.from(tableList),
         columnList: columnListTableAlias(columnList),
+        parameterList: unique(parameters).sort((a, b) => a.offset - b.offset),
         ast: head
       }
     }
@@ -1658,7 +1663,8 @@ column_part  = [A-Za-z0-9_:]
 
 param
   = l:(':' ident_name) {
-      return { type: 'param', value: l[1] };
+      parameters.push({ type: 'param', value: l[1], offset: location().start.offset});
+      return { type: 'param', value: l[1]};
     }
 
 aggr_func

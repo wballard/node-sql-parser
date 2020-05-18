@@ -321,6 +321,7 @@ describe('select', () => {
         expr: {
           tableList: ['select::null::t1'],
           columnList: ['select::null::(.*)', 'select::null::id'],
+          parameterList: [],
           ast: {
               with: null,
               type: 'select',
@@ -384,6 +385,7 @@ describe('select', () => {
             expr: {
               tableList: ["select::null::t2", "select::null::t1"],
               columnList: ["select::null::(.*)", "select::null::id",  "select::null::col1", "select::t1::id", "select::someAlias::id"],
+              parameterList: [],
               ast: {
                 with: null,
                 type: 'select',
@@ -521,6 +523,7 @@ describe('select', () => {
           expr: {
             tableList: ["select::null::t"],
             columnList: ["select::null::(.*)"],
+            parameterList: [],
             ast: {
               with: null,
               type: 'select',
