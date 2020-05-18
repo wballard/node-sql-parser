@@ -17,6 +17,7 @@ export interface Option {
 export interface TableColumnAst {
   tableList: string[];
   columnsList: string[];
+  namedParameters: string[];
   ast: AST[] | AST;
 }
 export interface From {
