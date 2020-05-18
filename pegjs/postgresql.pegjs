@@ -187,7 +187,7 @@
 
   // used for dependency analysis
   let varList = [];
-  const parameters = [];
+  const namedParameters = new Set();
   const tableList = new Set();
   const columnList = new Set();
   const tableAlias = {};
@@ -239,7 +239,7 @@ multiple_stmt
       return {
         tableList: Array.from(tableList),
         columnList: columnListTableAlias(columnList),
-        parameterList: unique(parameters).sort((a, b) => a.offset - b.offset),
+        namedParameters: Array.from(namedParameters),
       	ast: cur
       }
     }
@@ -255,7 +255,7 @@ union_stmt
       return {
         tableList: Array.from(tableList),
         columnList: columnListTableAlias(columnList),
-        parameterList: unique(parameters).sort((a, b) => a.offset - b.offset),
+        namedParameters: Array.from(namedParameters),
         ast: head
       }
     }
@@ -1701,7 +1701,7 @@ column_part  = [A-Za-z0-9_]
 
 param
   = l:(':' ident_name) {
-      parameters.push({ type: 'param', value: l[1], offset: location().start.offset});
+      namedParameters.add(l[1]);
       return { type: 'param', value: l[1]};;
     }
 
