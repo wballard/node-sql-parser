@@ -12,7 +12,8 @@
     "lint": "npm run build && eslint src/",
     "prepublishOnly": "npm run build && npm run browser",
     "coverLocal": "nyc npm run test",
-    "cover": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
+    "cover": "nyc npm run test && nyc report --reporter=text-lcov | coveralls",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
